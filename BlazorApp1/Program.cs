@@ -1,10 +1,12 @@
 using BlazorApp1.Components;
 
+using BlazorApp1.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped<IEmailService, EmailService>();//Important to add this line(Kateryna)
 
 var app = builder.Build();
 
