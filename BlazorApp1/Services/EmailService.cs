@@ -37,10 +37,13 @@ public class EmailService: IEmailService
     {
         _emails.Add(email);
         email.TimeSent = DateTime.Now;
+        // Optionally serialize and log to the console
+        var json = System.Text.Json.JsonSerializer.Serialize(email);
+        Console.WriteLine($"Serialized email: {json}");
     }
 
-    public List<Email> GetEmails()
+    public IEnumerable<Email> GetEmails()
     {
-        return _emails;
+        return _emails.AsEnumerable();
     }
 }

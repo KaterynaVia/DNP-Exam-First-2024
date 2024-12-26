@@ -1,0 +1,83 @@
+﻿@page "/ViewEmails"
+@using BlazorApp1.Model 
+@using BlazorApp1.Services
+@inject IEmailService EmailService
+<h3>ViewEmails</h3>
+<label>Incoming: @incoming</label><br/>
+<label>Sent: @sent</label>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Sender</th>
+        <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Emails)
+    {
+    <tr>
+        <td>
+            <button @onclick="@(() => ShowEmail(item))">@item.Sender</button>
+        </td>
+        <td>
+            <button @onclick="@(() => ShowEmail(item))">@item.Title </button>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+@if (selectedEmail != null)
+{
+<div>
+    <label>From: @selectedEmail.Sender</label>
+    <label>To: @selectedEmail.Receiver</label>
+    <label>Title: @selectedEmail.Title</label>
+    <label>Message: @selectedEmail.Body</label>
+    <label>@selectedEmail.TimeSent.ToString("dd/MM/yyyy HH:mm")</label>
+</div>
+}
+@code {
+    private IEnumerable<Email> Emails;
+    private Email? selectedEmail;
+    private int incoming;
+    private int sent;
+
+    protected override void OnInitialized()
+    {
+        Emails = EmailService.GetEmails();
+        CountIncoming();
+        CountSent();
+    }
+
+    private void ShowEmail(Email email)
+    {
+        selectedEmail = email;
+    }
+
+    private void CountIncoming()
+    {
+        var temp = 0;
+        foreach (var email in Emails)
+        {
+            if (email.Receiver.Equals("331305"))
+            {
+                temp += 1;
+            }
+        }
+        incoming = temp;
+    }
+
+    private void CountSent()
+    {
+        var temp = 0;
+        foreach (var email in Emails)
+        {
+            if (email.Sender.Equals("Kateryna"))
+            {
+                temp += 1;
+            }
+        }
+        sent = temp;
+    }
+ 
+}
