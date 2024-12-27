@@ -37,16 +37,22 @@
 </div>
 }
 @code {
-    private IEnumerable<Email> Emails;
+    private IEnumerable<Email> Emails = new List<Email>();
     private Email? selectedEmail;
     private int incoming;
     private int sent;
+    private string currentUser = "Kateryna";
 
     protected override void OnInitialized()
+    {
+        RefreshEmails();
+    }
+    private void RefreshEmails()
     {
         Emails = EmailService.GetEmails();
         CountIncoming();
         CountSent();
+        StateHasChanged();
     }
 
     private void ShowEmail(Email email)

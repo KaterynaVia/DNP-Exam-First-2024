@@ -1,49 +1,50 @@
-﻿using BlazorApp1.Model;
+﻿using System.Text.Json;
+using BlazorApp1.Model;
 
 namespace BlazorApp1.Services;
 
 public class EmailService: IEmailService
 {
-    private List<Email> _emails;
+    
 
     public EmailService()
     {
-        _emails = new List<Email>
-        {
-            new Email("Kateryna", "Seva", "Hi!", "Whats up?")
-            {
-                TimeSent = DateTime.Now.AddHours(-1)
-            }, //means one hours ago(-1)
-            new Email("Hugo", "Hugo", "Hello!", "Whats up?")
-            {
-                TimeSent = DateTime.Now.AddHours(-1)
-            },
-            new Email("Niels", "Kateryna", "Hello!", "Whats up?")
-            {
-                TimeSent = DateTime.Now.AddHours(-1)
-            },
-            new Email("Niels1", "Kateryna1", "Hej!", "Whats up?")
-            {
-                TimeSent = DateTime.Now.AddHours(3)
-            },
-            new Email("Niels2", "Kateryna2", "Pryvit!", "Whats up?")
-            {
-                TimeSent = DateTime.Now.AddHours(-2)
-            }
-        };
-    }
+        Emails = new List<Email>();
 
+        var one = new Email("Kateryna", "Seva", "Hi!", "Whats up?");
+
+        var two = new Email("Hugo", "Hugo", "Hello!", "Whats up?");
+
+        var three = new Email("Niels", "Kateryna", "Hello!", "Whats up?");
+
+        var four = new Email("Niels1", "Kateryna1", "Hej!", "Whats up?");
+
+        var five = new Email("Niels2", "Kateryna2", "Pryvit!", "Whats up?");
+Emails.Add(one);
+Emails.Add(two);
+Emails.Add(three);
+Emails.Add(four);
+Emails.Add(five);
+    }
+public IList<Email> Emails { get;}
     public void SendEmail(Email email)
     {
-        _emails.Add(email);
+        
         email.TimeSent = DateTime.Now;
-        // Optionally serialize and log to the console
-        var json = System.Text.Json.JsonSerializer.Serialize(email);
-        Console.WriteLine($"Serialized email: {json}");
+        if (string.IsNullOrWhiteSpace(email.Sender))
+        {
+            email.Sender = "Kateryna";
+        }
+
+        Emails.Add(email);
+        var jsonString = JsonSerializer.Serialize(email);
+        Console.WriteLine(jsonString);
+        Console.WriteLine($"Email sent: {email.Sender} -> {email.Receiver}, Title: {email.Title}");
     }
 
     public IEnumerable<Email> GetEmails()
     {
-        return _emails.AsEnumerable();
+        Console.WriteLine($"Returning {Emails.Count} emails.");
+        return Emails.AsEnumerable();
     }
 }

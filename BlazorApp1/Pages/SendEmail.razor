@@ -6,20 +6,13 @@
 <h3>Send Email</h3>
 <label>Receiver:</label>
     <input @bind="Receiver" type="text"/>
-
-
     <label>Title:</label>
     <input @bind="Title" type="text"/>
-
-
     <label>Body:</label>
-    <textarea @bind="Body"></textarea> 
-
-<button @onclick="Send" class="acceptbtn">Send Email</button>
-<label @bind="message"></label>
-
-
-
+    <textarea @bind="Body"></textarea>
+    <button @onclick="Send" class="acceptbtn">Send Email</button>
+    <label @bind="message"></label>
+    
 @code {
     private string Receiver;
     private string Title;
@@ -31,5 +24,6 @@
         var newMail = new Email("Kateryna", Receiver, Title, Body);
         EmailService.SendEmail(newMail);
         message = "Email was sent";
+        Console.WriteLine("New email sent.");
     }
 }
