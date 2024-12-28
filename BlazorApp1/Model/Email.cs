@@ -16,6 +16,5 @@ public class Email
         Body = body;
         TimeSent = DateTime.Now;
     }
-    public Email ()
-    {}
+    
 }

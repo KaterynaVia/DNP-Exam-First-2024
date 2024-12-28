@@ -12,6 +12,7 @@
     <textarea @bind="Body"></textarea>
     <button @onclick="Send" class="acceptbtn">Send Email</button>
     <label @bind="message"></label>
+
     
 @code {
     private string Receiver;
@@ -25,5 +26,6 @@
         EmailService.SendEmail(newMail);
         message = "Email was sent";
         Console.WriteLine("New email sent.");
+       
     }
 }

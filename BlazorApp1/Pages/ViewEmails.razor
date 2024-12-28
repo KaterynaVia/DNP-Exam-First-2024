@@ -10,6 +10,7 @@
     <tr>
         <th>Sender</th>
         <th>Title</th>
+        <th><button @onclick="RefreshEmails">Refresh Emails</button></th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
         <td>
             <button @onclick="@(() => ShowEmail(item))">@item.Title </button>
         </td>
+       
     </tr>
     }
     </tbody>
@@ -34,6 +36,7 @@
     <label>Title: @selectedEmail.Title</label>
     <label>Message: @selectedEmail.Body</label>
     <label>@selectedEmail.TimeSent.ToString("dd/MM/yyyy HH:mm")</label>
+   
 </div>
 }
 @code {

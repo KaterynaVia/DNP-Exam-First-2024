@@ -5,8 +5,6 @@ namespace BlazorApp1.Services;
 
 public class EmailService: IEmailService
 {
-    
-
     public EmailService()
     {
         Emails = new List<Email>();
@@ -15,11 +13,11 @@ public class EmailService: IEmailService
 
         var two = new Email("Hugo", "Hugo", "Hello!", "Whats up?");
 
-        var three = new Email("Niels", "Kateryna", "Hello!", "Whats up?");
+        var three = new Email("Seva", "Kateryna", "Hello!", "Whats up?");
 
-        var four = new Email("Niels1", "Kateryna1", "Hej!", "Whats up?");
+        var four = new Email("Seva1", "Kateryna1", "Hej!", "Whats up?");
 
-        var five = new Email("Niels2", "Kateryna2", "Pryvit!", "Whats up?");
+        var five = new Email("Seva2", "Kateryna2", "Pryvit!", "Whats up?");
 Emails.Add(one);
 Emails.Add(two);
 Emails.Add(three);
@@ -27,22 +25,29 @@ Emails.Add(four);
 Emails.Add(five);
     }
 public IList<Email> Emails { get;}
-    public void SendEmail(Email email)
-    {
-        
-        email.TimeSent = DateTime.Now;
-        if (string.IsNullOrWhiteSpace(email.Sender))
-        {
-            email.Sender = "Kateryna";
-        }
 
-        Emails.Add(email);
-        var jsonString = JsonSerializer.Serialize(email);
-        Console.WriteLine(jsonString);
-        Console.WriteLine($"Email sent: {email.Sender} -> {email.Receiver}, Title: {email.Title}");
+public void SendEmail(Email email)
+{
+
+    email.TimeSent = DateTime.Now;
+    if (string.IsNullOrWhiteSpace(email.Sender))
+    {
+        email.Sender = "Kateryna";
     }
 
-    public IEnumerable<Email> GetEmails()
+    Emails.Add(email);
+    var jsonString = JsonSerializer.Serialize(email);
+    Console.WriteLine(jsonString);
+    
+    Console.WriteLine($"Email added. Current count: {Emails.Count}");
+    foreach (var e in Emails)
+    {
+        Console.WriteLine($"Email sent: {email.Sender} -> " +
+                          $"{email.Receiver}, Title: {email.Title}");
+    }
+}
+
+public IEnumerable<Email> GetEmails()
     {
         Console.WriteLine($"Returning {Emails.Count} emails.");
         return Emails.AsEnumerable();
