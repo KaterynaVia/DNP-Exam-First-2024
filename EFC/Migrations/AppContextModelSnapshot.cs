@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using УАС;
+using EFC;
 
 #nullable disable
 
-namespace УАС.Migrations
+namespace EFC.Migrations
 {
     [DbContext(typeof(AppContext))]
     partial class AppContextModelSnapshot : ModelSnapshot

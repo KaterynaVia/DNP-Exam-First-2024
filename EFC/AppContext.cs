@@ -2,7 +2,7 @@
 using EFС.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace УАС;
+namespace EFC;
 
 public class AppContext : DbContext
 {
