@@ -1,7 +1,7 @@
-﻿using EFC.Entities;
-using EFС.Entities;
+﻿using EFC1.Entities;
 using Microsoft.EntityFrameworkCore;
-namespace EFC;
+
+namespace EFC1;
 
 public class AppContext: DbContext
 {
@@ -19,5 +19,4 @@ public class AppContext: DbContext
         modelBuilder.Entity<Show>().HasKey(Show => Show.Id);
         modelBuilder.Entity<Episode>().HasKey(Episode => Episode.Id);
     }
-
 }
